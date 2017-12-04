@@ -15,6 +15,9 @@ def short_url(short_url):
     url = r.get(short_url)
     return redirect(url)
 
+@app.route('/')
+def root():
+    return redirect(request.url_root + 'short')
 
 @app.route('/short', methods=['GET', 'POST'])
 def short_link():
