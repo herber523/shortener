@@ -1,3 +1,4 @@
+"""Small shortener."""
 import hashlib
 import time
 
@@ -7,14 +8,17 @@ import redis
 app = Flask(__name__)
 r = redis.Redis()
 
+
 @app.route('/<short_url>')
 def short_url(short_url):
+    """Redirect url."""
     url = r.get(short_url)
     return redirect(url)
 
+
 @app.route('/short', methods=['GET', 'POST'])
-def query_link_view():
-    """Get user input."""
+def short_link():
+    """Short link."""
     if request.method == 'GET':
         return render_template('short.html')
     elif request.method == 'POST':
@@ -23,7 +27,7 @@ def query_link_view():
         url_hash = hashlib.md5(url_hash).hexdigest()
         url_hash = url_hash[:8]
         r.set(url_hash, url)
-        return url_hash
+        return request.url_root + url_hash
 
 
 if __name__ == '__main__':
