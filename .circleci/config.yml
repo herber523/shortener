@@ -43,6 +43,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            . venv/bin/activate
             pip install flake8 flake8-docstrings pytest
             flake8 .
 
