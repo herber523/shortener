@@ -6,7 +6,7 @@ from flask import Flask, redirect, render_template, request
 import redis
 
 app = Flask(__name__)
-r = redis.Redis()
+r = redis.Redis(host='redis')
 
 
 @app.route('/<short_url>')
@@ -34,4 +34,4 @@ def short_link():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', processes=8)
